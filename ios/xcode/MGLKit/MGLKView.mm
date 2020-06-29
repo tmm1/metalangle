@@ -47,6 +47,15 @@ void Throw(NSString *msg)
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame context:(MGLContext *)context
+{
+    if (self = [self initWithFrame:frame])
+    {
+        [self setContext:context];
+    }
+    return self;
+}
+
 - (void)dealloc
 {
     _context = nil;
@@ -78,6 +87,14 @@ void Throw(NSString *msg)
     }
 
     _context = context;
+}
+
+- (void)setEnableSetNeedsDisplay:(BOOL)value
+{
+    if (value)
+    {
+        Throw(@"setNeedsDisplay not implemented");
+    }
 }
 
 - (void)setRetainedBacking:(BOOL)retainedBacking
@@ -123,6 +140,16 @@ void Throw(NSString *msg)
         return zero;
     }
     return self.glLayer.drawableSize;
+}
+
+- (NSInteger)drawableWidth
+{
+    return self.drawableSize.width;
+}
+
+- (NSInteger)drawableHeight
+{
+    return self.drawableSize.height;
 }
 
 - (uint32_t)defaultOpenGLFrameBufferID
